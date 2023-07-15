@@ -53,10 +53,12 @@ public class Application {
         String output = "This word does not have meanings";
         
         JSONObject jObject  = new JSONObject(content);
-        JSONObject data = jObject.getJSONObject("meanings");
-        String results = data.getString("word");
+        return new TextMessage(jObject.toString());
 
-        return new TextMessage(data.toString());
+        // JSONObject data = jObject.getJSONObject("meanings");
+        // String results = data.getString("word");
+
+        // return new TextMessage(data.toString());
         // return new TextMessage(content.toString());
     }
 }
