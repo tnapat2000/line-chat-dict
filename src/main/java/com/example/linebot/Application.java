@@ -61,6 +61,7 @@ public class Application {
 
         } catch (ParseException e1) {
             e1.printStackTrace();
+            return new TextMessage("Error");
         }
         // return new TextMessage(jObject.toString());
 
@@ -68,6 +69,6 @@ public class Application {
         // String results = data.getString("word");
 
         // return new TextMessage(data.toString());
-        return new TextMessage(content.toString());
+        // return new TextMessage(content.toString());
     }
 }
