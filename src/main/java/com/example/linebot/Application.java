@@ -12,7 +12,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -28,7 +30,7 @@ public class Application {
         System.out.println("event: " + e);
         TextMessageContent message = e.getMessage();
         String urlString = "https://api.dictionaryapi.dev/api/v2/entries/en/" + message.getText().toString();
-        StringBuilder content= new StringBuilder();;
+        StringBuilder content= new StringBuilder();
         try {
             URL url = new URL(urlString);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -50,15 +52,22 @@ public class Application {
             e1.printStackTrace();
         }
         
-        String output = "This word does not have meanings";
-        
-        JSONObject jObject  = new JSONObject(content);
-        return new TextMessage(jObject.toString());
+        String responseMessage = "This word does not have meanings";
+        JSONParser jParser = new JSONParser();
+        JSONObject jObject;
+        try {
+            jObject = (JSONObject) jParser.parse(content.toString());
+            return new TextMessage(jObject.toJSONString());
+
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+        // return new TextMessage(jObject.toString());
 
         // JSONObject data = jObject.getJSONObject("meanings");
         // String results = data.getString("word");
 
         // return new TextMessage(data.toString());
-        // return new TextMessage(content.toString());
+        return new TextMessage(content.toString());
     }
 }
