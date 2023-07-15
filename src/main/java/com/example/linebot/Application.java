@@ -13,6 +13,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -34,6 +37,10 @@ public class Application {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
 
+            if (con.getResponseCode() != 200){
+                return new TextMessage("This word has no meaning");
+            }
+
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
@@ -42,11 +49,20 @@ public class Application {
 
             in.close();
             con.disconnect();
-
         } catch (Exception e1) {
             e1.printStackTrace();
         }
         
-        return new TextMessage(content.toString());
+        JSONParser jParser = new JSONParser();
+        JSONObject json;
+        String output = "";
+        try {
+            json = (JSONObject) jParser.parse(content.toString());
+            output = json.get("meanings").toString();
+        } catch (ParseException e1) {
+            output = "This word does not have meanings";
+            e1.printStackTrace();
+        }  
+        return new TextMessage(output);
     }
 }
