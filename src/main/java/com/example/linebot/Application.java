@@ -57,7 +57,7 @@ public class Application {
         JSONObject jObject;
         try {
             jObject = (JSONObject) jParser.parse(content.toString());
-            return new TextMessage(jObject.toJSONString());
+            return new TextMessage(jObject.toString());
 
         } catch (ParseException e1) {
             e1.printStackTrace();
