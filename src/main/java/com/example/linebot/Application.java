@@ -55,16 +55,14 @@ public class Application {
         String responseMessage = "This word does not have meanings";
         JSONParser jParser = new JSONParser();
         JSONObject jObject;
+        try {
+            jObject = (JSONObject) jParser.parse(content.toString());
+            return new TextMessage(jObject.toString());
 
-        return new TextMessage(content.toString());
-        // try {
-        //     jObject = (JSONObject) jParser.parse(content.toString());
-        //     return new TextMessage(content.toString());
-
-        // } catch (ParseException e1) {
-        //     e1.printStackTrace();
-        //     return new TextMessage("Error");
-        // }
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+            return new TextMessage("Error");
+        }
         // return new TextMessage(jObject.toString());
 
         // JSONObject data = jObject.getJSONObject("meanings");
