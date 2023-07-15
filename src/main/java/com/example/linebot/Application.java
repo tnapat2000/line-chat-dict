@@ -53,16 +53,17 @@ public class Application {
             e1.printStackTrace();
         }
         
-        JSONParser jParser = new JSONParser();
-        JSONObject json;
-        String output = "";
-        try {
-            json = (JSONObject) jParser.parse(content.toString());
-            output = json.get("meanings").toString();
-        } catch (ParseException e1) {
-            output = "This word does not have meanings";
-            e1.printStackTrace();
-        }  
-        return new TextMessage(output);
+        // JSONParser jParser = new JSONParser();
+        // JSONObject json;
+        // String output = "";
+        // try {
+        //     json = (JSONObject) jParser.parse(content.toString());
+        //     output = json.get("meanings").toString();
+        // } catch (ParseException e1) {
+        //     output = "This word does not have meanings";
+        //     e1.printStackTrace();
+        // }  
+        // return new TextMessage(output);
+        return new TextMessage(content.toString());
     }
 }
