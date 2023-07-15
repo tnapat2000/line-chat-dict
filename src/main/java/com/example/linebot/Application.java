@@ -10,12 +10,9 @@ import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -53,17 +50,13 @@ public class Application {
             e1.printStackTrace();
         }
         
-        // JSONParser jParser = new JSONParser();
-        // JSONObject json;
-        // String output = "";
-        // try {
-        //     json = (JSONObject) jParser.parse(content.toString());
-        //     output = json.get("meanings").toString();
-        // } catch (ParseException e1) {
-        //     output = "This word does not have meanings";
-        //     e1.printStackTrace();
-        // }  
-        // return new TextMessage(output);
-        return new TextMessage(content.toString());
+        String output = "This word does not have meanings";
+        
+        JSONObject jObject  = new JSONObject(content);
+        JSONObject data = jObject.getJSONObject("data");
+        String results = data.getString("meanings");
+
+        return new TextMessage(results);
+        // return new TextMessage(content.toString());
     }
 }
