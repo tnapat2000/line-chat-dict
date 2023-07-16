@@ -62,39 +62,40 @@ public class Application {
         try {
             jArray = (JSONArray) jParser.parse(content.toString());
 
-            for(int i = 0 ; i < jArray.size(); i++) {
-                JSONObject jObject= (JSONObject) jArray.get(i);                
-                JSONArray meaningsJson = (JSONArray) jObject.get("meanings");
-                // System.out.println(meaningsJson);
-                // System.out.println(meaningsJson.size());
-                for (int j = 0; j < meaningsJson.size(); j ++){
-                    // System.out.println(meaningsJson.get(j));
-                    JSONObject nounJsonObject = (JSONObject) meaningsJson.get(j);
 
-                    // part of speech
-                    String partOfSpeechInput = nounJsonObject.get("partOfSpeech").toString();
-                    String partOfSpeech = partOfSpeechInput.substring(0, 1).toUpperCase() + partOfSpeechInput.substring(1);
-                    stringBuilder.append(partOfSpeech + ": ");
+            JSONObject jObject= (JSONObject) jArray.get(0);                
+            JSONArray meaningsJson = (JSONArray) jObject.get("meanings");
+            // System.out.println(meaningsJson);
+            // System.out.println(meaningsJson.size());
+            for (int j = 0; j < meaningsJson.size(); j ++){
+                // System.out.println(meaningsJson.get(j));
+                JSONObject nounJsonObject = (JSONObject) meaningsJson.get(j);
 
-                    // definitions
-                    JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
-                    stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
-                    if (j < meaningsJson.size()) {
+                // part of speech
+                String partOfSpeechInput = nounJsonObject.get("partOfSpeech").toString();
+                String partOfSpeech = partOfSpeechInput.substring(0, 1).toUpperCase() + partOfSpeechInput.substring(1);
+                stringBuilder.append("> " + partOfSpeech + ": ");
+
+                // definitions
+                JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
+                stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
+                stringBuilder.append("\n");
+                if (j < meaningsJson.size()-1) {
+                    stringBuilder.append("\n");
+                }
+
+                // synonyms
+                JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
+                if (synonymArray.size() > 0) {
+                    stringBuilder.append("> " + "Synonyms: ");
+                    stringBuilder.append("\n");
+                    for (int k = 0; k < synonymArray.size(); k++){
+                        stringBuilder.append(" |>"+synonymArray.get(k));
                         stringBuilder.append("\n");
-                    }
-
-                    // synonyms
-                    JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
-                    if (synonymArray.size() > 0) {
-                        stringBuilder.append("Synonyms: ");
-                        stringBuilder.append("\n");
-                        for (int k = 0; k < synonymArray.size(); k++){
-                            stringBuilder.append("|-"+synonymArray.get(k));
-                            stringBuilder.append("\n");
-                        }
                     }
                 }
             }
+        
             if (stringBuilder.length() <= 0) {return new TextMessage(defaultResponseMessage);}
             return new TextMessage(stringBuilder.toString());
 
