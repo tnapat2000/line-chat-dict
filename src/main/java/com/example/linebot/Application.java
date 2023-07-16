@@ -89,9 +89,9 @@ public class Application {
                             stringBuilder.append(" |> "+synonymArray.get(k) + "\n");
                         }
                     }
-                    if (j < meaningsJson.size()-1) {stringBuilder.append("\n");}
+                    stringBuilder.append("\n");
                 }
-                // if (i < jArray.size() -1) {stringBuilder.append("\n");}
+                if (i < jArray.size() -1) {stringBuilder.delete(stringBuilder.length()-2, stringBuilder.length()-1);}
             }
             if (stringBuilder.length() <= 0) {return new TextMessage(defaultResponseMessage);}
             return new TextMessage(stringBuilder.toString());
