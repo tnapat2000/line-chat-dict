@@ -74,7 +74,7 @@ public class Application {
                     // part of speech
                     String partOfSpeechInput = nounJsonObject.get("partOfSpeech").toString();
                     String partOfSpeech = partOfSpeechInput.substring(0, 1).toUpperCase() + partOfSpeechInput.substring(1);
-                    stringBuilder.append(partOfSpeech + ": ");
+                    stringBuilder.append("> " + partOfSpeech + ": ");
 
                     // definitions
                     JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
@@ -84,16 +84,14 @@ public class Application {
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
                     if (synonymArray.size() > 0) {
-                        stringBuilder.append("Synonyms: ");
-                        stringBuilder.append("\n");
+                        stringBuilder.append("> " + "Synonyms: " + "\n");
                         for (int k = 0; k < synonymArray.size(); k++){
-                            stringBuilder.append("|-"+synonymArray.get(k));
-                            stringBuilder.append("\n");
+                            stringBuilder.append(" |> "+synonymArray.get(k) + "\n");
                         }
                     }
-                    if (j == meaningsJson.size()-1) {stringBuilder.append("\n");}
+                    // if (j < meaningsJson.size()-1) {stringBuilder.append("\n");}
                 }
-                if (i < jArray.size()-1) {stringBuilder.append("\n");}
+                if (i < jArray.size() -1) {stringBuilder.append("\n");}
             }
             if (stringBuilder.length() <= 0) {return new TextMessage(defaultResponseMessage);}
             return new TextMessage(stringBuilder.toString());
