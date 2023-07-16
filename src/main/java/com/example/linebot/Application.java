@@ -58,7 +58,7 @@ public class Application {
         JSONParser jParser = new JSONParser();
         JSONArray jArray;
         // return new TextMessage(content.toString());
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("\n");
         try {
             jArray = (JSONArray) jParser.parse(content.toString());
 
@@ -100,12 +100,5 @@ public class Application {
             e1.printStackTrace();
             return new TextMessage(defaultResponseMessage);
         }
-        // return new TextMessage(jObject.toString());
-
-        // JSONObject data = jObject.getJSONObject("meanings");
-        // String results = data.getString("word");
-
-        // return new TextMessage(data.toString());
-        // return new TextMessage(content.toString());
     }
 }
