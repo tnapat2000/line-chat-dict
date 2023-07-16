@@ -80,7 +80,9 @@ public class Application {
                     // definitions
                     JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
                     stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
-                    stringBuilder.append("\n");
+                    if (j == meaningsJson.size()-1) {
+                        stringBuilder.append("\n");
+                    }
 
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
@@ -90,7 +92,6 @@ public class Application {
                         for (int k = 0; k < synonymArray.size(); k++){
                             stringBuilder.append("|-"+synonymArray.get(k));
                             stringBuilder.append("\n");
-                            if (j == synonymArray.size()-1){stringBuilder.append("\n");}
                         }
                     }
                 }
