@@ -83,7 +83,7 @@ public class Application {
 
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
-                    if (synonymArray.size() <= 0) {
+                    if (synonymArray.size() > 0) {
                         stringBuilder.append("Synonyms: ");
                         stringBuilder.append("\n");
                         for (int k = 0; k < synonymArray.size(); k++){
