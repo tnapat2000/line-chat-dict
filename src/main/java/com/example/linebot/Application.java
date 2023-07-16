@@ -80,7 +80,7 @@ public class Application {
                     // definitions
                     JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
                     stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
-                    if (j == meaningsJson.size()-1) {
+                    if (j < meaningsJson.size()-1) {
                         stringBuilder.append("\n");
                     }
 
