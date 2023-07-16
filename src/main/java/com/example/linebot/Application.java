@@ -75,11 +75,12 @@ public class Application {
                     String partOfSpeechInput = nounJsonObject.get("partOfSpeech").toString();
                     String partOfSpeech = partOfSpeechInput.substring(0, 1).toUpperCase() + partOfSpeechInput.substring(1);
                     stringBuilder.append(partOfSpeech + ": ");
-                    if (j < meaningsJson.size()-1){stringBuilder.append("\n");}
+
 
                     // definitions
                     JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
                     stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
+                    stringBuilder.append("\n");
                     
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
