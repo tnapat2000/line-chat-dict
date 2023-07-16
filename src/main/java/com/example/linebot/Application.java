@@ -63,7 +63,7 @@ public class Application {
             jArray = (JSONArray) jParser.parse(content.toString());
 
             for(int i = 0 ; i < jArray.size(); i++) {
-                JSONObject jObject= (JSONObject) jArray.get(0);                
+                JSONObject jObject= (JSONObject) jArray.get(i);                
                 JSONArray meaningsJson = (JSONArray) jObject.get("meanings");
                 // System.out.println(meaningsJson);
                 // System.out.println(meaningsJson.size());
