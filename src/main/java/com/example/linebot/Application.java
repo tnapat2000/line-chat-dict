@@ -81,7 +81,7 @@ public class Application {
                     JSONArray defJsonArray = (JSONArray) nounJsonObject.get("definitions");
                     stringBuilder.append(((JSONObject)defJsonArray.get(0)).get("definition"));
                     stringBuilder.append("\n");
-                    
+
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
                     if (synonymArray.size() > 0) {
@@ -89,7 +89,8 @@ public class Application {
                         stringBuilder.append("\n");
                         for (int k = 0; k < synonymArray.size(); k++){
                             stringBuilder.append("|-"+synonymArray.get(k));
-                            if (j < synonymArray.size()-1){stringBuilder.append("\n");}
+                            stringBuilder.append("\n");
+                            if (j == synonymArray.size()-1){stringBuilder.append("\n");}
                         }
                     }
                 }
