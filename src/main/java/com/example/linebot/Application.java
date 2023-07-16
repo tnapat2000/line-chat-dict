@@ -81,7 +81,7 @@ public class Application {
 
                     // synonyms
                     JSONArray synonymArray = (JSONArray)nounJsonObject.get("synonyms");
-                    if (!synonymArray.isEmpty()) {
+                    if (synonymArray.size() <= 0) {
                         stringBuilder.append("Synonyms: ");
                         stringBuilder.append("/n");
                         for (int k = 0; k < synonymArray.size(); k++){
@@ -90,7 +90,7 @@ public class Application {
                     }
                 }
             }
-            if (stringBuilder.isEmpty()) {return new TextMessage(defaultResponseMessage);}
+            if (stringBuilder.length() <= 0) {return new TextMessage(defaultResponseMessage);}
             return new TextMessage(stringBuilder.toString());
 
         } catch (ParseException e1) {
